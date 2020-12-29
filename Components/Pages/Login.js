@@ -1,16 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { Button, ThemeProvider } from "react-native-elements";
 
 function Login({ navigation }) {
   const onLoginSubmit = () => {
     navigation.navigate("Home");
   };
   return (
-    <View style={styles.container}>
-      <Text>Login</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider>
+      <Button title="Hey!" />
+    </ThemeProvider>
   );
 }
 
