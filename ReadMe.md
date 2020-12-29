@@ -7,3 +7,12 @@ The front end will be a place for where users can provide their phone number and
 
 ## Back End
 The back end will be listening for API calls from Front End on when to send notifications to database of users that provided their phone number. The back end will run the notifications at scheduled intervals. 
+
+
+
+https://docs.expo.io/distribution/publishing-websites/
+https://rumble.capital/bots/
+
+## How to deploy web
+yarn add -D gh-pages
+yarn deploy
