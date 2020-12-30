@@ -1,11 +1,11 @@
 {
   "files": {
-    "app.js": "/bots/static/js/app.d3deb19e.chunk.js",
-    "app.js.map": "/bots/static/js/app.d3deb19e.chunk.js.map",
+    "app.js": "/bots/static/js/app.d6f1aca0.chunk.js",
+    "app.js.map": "/bots/static/js/app.d6f1aca0.chunk.js.map",
     "runtime~app.js": "/bots/static/js/runtime~app.17b43e0d.js",
     "runtime~app.js.map": "/bots/static/js/runtime~app.17b43e0d.js.map",
-    "static/js/2.d31f1cd3.chunk.js": "/bots/static/js/2.d31f1cd3.chunk.js",
-    "static/js/2.d31f1cd3.chunk.js.map": "/bots/static/js/2.d31f1cd3.chunk.js.map",
+    "static/js/2.2e6dd164.chunk.js": "/bots/static/js/2.2e6dd164.chunk.js",
+    "static/js/2.2e6dd164.chunk.js.map": "/bots/static/js/2.2e6dd164.chunk.js.map",
     "fonts/AntDesign.ttf": "/bots/./fonts/AntDesign.ttf",
     "fonts/Entypo.ttf": "/bots/./fonts/Entypo.ttf",
     "fonts/Feather.ttf": "/bots/./fonts/Feather.ttf",
@@ -24,7 +24,7 @@
     "index.html": "/bots/index.html",
     "manifest.json": "/bots/manifest.json",
     "serve.json": "/bots/serve.json",
-    "static/js/2.d31f1cd3.chunk.js.LICENSE.txt": "/bots/static/js/2.d31f1cd3.chunk.js.LICENSE.txt",
+    "static/js/2.2e6dd164.chunk.js.LICENSE.txt": "/bots/static/js/2.2e6dd164.chunk.js.LICENSE.txt",
     "static/media/bell.png": "/bots/static/media/bell.cf04af27.png",
     "static/media/heart.png": "/bots/static/media/heart.23b5c2c0.png",
     "static/media/rocket.png": "/bots/static/media/rocket.d2f3bf41.png",
@@ -32,7 +32,7 @@
   },
   "entrypoints": [
     "static/js/runtime~app.17b43e0d.js",
-    "static/js/2.d31f1cd3.chunk.js",
-    "static/js/app.d3deb19e.chunk.js"
+    "static/js/2.2e6dd164.chunk.js",
+    "static/js/app.d6f1aca0.chunk.js"
   ]
 }
