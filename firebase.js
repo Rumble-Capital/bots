@@ -30,6 +30,15 @@ export function firebase_sign_in_anonymous() {
     .catch(error => console.log({ error }));
 }
 
+export function firebase_sign_in_google() {
+  var provider = new firebase.auth.GoogleAuthProvider();
+  console.log({ provider });
+  return firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(response => console.log({ response }))
+    .catch(error => console.log({ error }));
+}
 export function firebase_sign_up({ email, password }) {
   return firebase.auth().createUserWithEmailAndPassword(email, password);
 }

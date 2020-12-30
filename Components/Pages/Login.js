@@ -1,16 +1,35 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Button, ThemeProvider } from "react-native-elements";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { Button, ThemeProvider, Header } from "react-native-elements";
+import {
+  firebase,
+  firebase_sign_in_anonymous,
+  firebase_sign_up,
+  firebase_sign_in,
+  firebase_sign_out,
+  firebase_sign_in_google
+} from "../../firebase";
 
 function Login({ navigation }) {
   const onLoginSubmit = () => {
-    navigation.navigate("Home");
+    firebase_sign_in_google().then(response => {
+      console.log({ response });
+    });
+  };
+
+  const onLogoutSubmit = () => {
+    firebase_sign_out().then(response => {
+      console.log({ response });
+    });
   };
   return (
-    <ThemeProvider>
-      <Button onPress={onLoginSubmit} title="Hey!" />
-    </ThemeProvider>
+    <View style={styles.container}>
+      <Button onPress={onLoginSubmit} title="Login!" />
+      <Button onPress={onLogoutSubmit} title="Logout!" />
+
+      <StatusBar style="auto" />
+    </View>
   );
 }
 
