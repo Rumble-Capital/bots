@@ -34,9 +34,10 @@ function SignUp({ navigation }) {
             id: uid,
             email
           };
-          const usersRef = firebase.firestore().collection("users");
-          usersRef
-            .doc(uid)
+
+          const firebaseRef = firebase.database().ref("users");
+          firebaseRef
+            .child(uid)
             .set(data)
             .then(() => {
               navigation.navigate("Home", { user: data });
@@ -44,6 +45,16 @@ function SignUp({ navigation }) {
             .catch(error => {
               alert(error);
             });
+          // const usersRef = firebase.firestore().collection("users");
+          // usersRef
+          //   .doc(uid)
+          //   .set(data)
+          //   .then(() => {
+          //     navigation.navigate("Home", { user: data });
+          //   })
+          //   .catch(error => {
+          //     alert(error);
+          //   });
         })
         .catch(error => {
           updateLoading(false);

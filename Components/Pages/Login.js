@@ -30,21 +30,16 @@ function Login({ navigation }) {
       firebase_sign_in({ email, password })
         .then(response => {
           const uid = response.user.uid;
-          const usersRef = firebase.firestore().collection("users");
-          usersRef
-            .doc(uid)
-            .get()
-            .then(firestoreDocument => {
-              if (!firestoreDocument.exists) {
-                alert("User does not exist anymore.");
-                return;
-              }
-              const user = firestoreDocument.data();
+
+          firebase
+            .database()
+            .ref("users")
+            .child(uid)
+            .once("value")
+            .then(snapshot => {
+              const user = snapshot.val();
               console.log({ user });
               navigation.navigate("Home", { user: user });
-            })
-            .catch(error => {
-              alert(error);
             });
         })
         .catch(error => {
