@@ -3,7 +3,7 @@ import React, { useState, useEffect, Fragment, useRef } from "react";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Platform } from "react-native";
 import { Button, ThemeProvider, Header, Input, CheckBox } from "react-native-elements";
 import { firebase, firebase_sign_out } from "../../firebase";
 Notifications.setNotificationHandler({
@@ -46,7 +46,7 @@ function Home({ navigation }) {
     firebaseRef.update({ phoneNumber: phoneNumber });
   };
 
-  useEffect(() => {
+  const setUpExpoToken = () => {
     registerForPushNotificationsAsync().then(token => {
       setExpoPushToken(token);
       firebaseRef.update({ ExpoPushToken: token });
@@ -66,6 +66,12 @@ function Home({ navigation }) {
       Notifications.removeNotificationSubscription(notificationListener);
       Notifications.removeNotificationSubscription(responseListener);
     };
+  };
+
+  useEffect(() => {
+    if (Platform.OS != "web") {
+      return setUpExpoToken();
+    }
   }, []);
   return (
     <View style={styles.container}>
@@ -101,7 +107,7 @@ async function registerForPushNotificationsAsync() {
     token = (await Notifications.getExpoPushTokenAsync()).data;
     console.log(token);
   } else {
-    alert("Must use physical device for Push Notifications");
+    //alert("Must use physical device for Push Notifications");
   }
 
   if (Platform.OS === "android") {
