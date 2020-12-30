@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, SafeAreaView, Text, Platform } from "react-native";
 import { Button, ThemeProvider, Header, Input } from "react-native-elements";
 import {
@@ -17,6 +17,17 @@ function Login({ navigation }) {
   const [message, setMessage] = useState("");
   const [loading, updateLoading] = useState(false);
   const [visible, setVisible] = useState(0);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user != null) {
+        navigation.navigate("Home");
+        console.log("We are authenticated now!");
+      }
+      console.log({ user });
+    });
+  }, []);
+
   const onLoginSubmit = () => {
     if (email === "") {
       setMessage("Email can't be empty.");
@@ -75,6 +86,7 @@ function Login({ navigation }) {
   const onSignUpSubmit = () => {
     navigation.navigate("SignUp");
   };
+
   return (
     <View style={styles.container}>
       <Input placeholder="Email" onChangeText={updateEmail} value={email} />

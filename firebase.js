@@ -16,12 +16,12 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-firebase.auth().onAuthStateChanged(user => {
-  if (user != null) {
-    console.log("We are authenticated now!");
-  }
-  console.log({ user });
-});
+// firebase.auth().onAuthStateChanged(user => {
+//   if (user != null) {
+//     console.log("We are authenticated now!");
+//   }
+//   console.log({ user });
+// });
 
 export function firebase_sign_in_anonymous() {
   return firebase
