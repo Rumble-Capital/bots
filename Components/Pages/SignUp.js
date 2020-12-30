@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, View, SafeAreaView, Text } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { Button, ThemeProvider, Header, Input } from "react-native-elements";
 import {
   firebase,
@@ -11,14 +11,14 @@ import {
   firebase_sign_in_google
 } from "../../firebase";
 
-function Login({ navigation }) {
+function SignUp({ navigation }) {
   const [password, updatePassword] = useState("");
   const [email, updateEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, updateLoading] = useState(false);
   const [visible, setVisible] = useState(0);
 
-  const onLoginSubmit = () => {
+  const onSubmit = () => {
     if (email === "") {
       setMessage("Email can't be empty.");
       setVisible(1);
@@ -27,21 +27,19 @@ function Login({ navigation }) {
       setVisible(1);
     } else {
       updateLoading(true);
-      firebase_sign_in({ email, password })
+      firebase_sign_up({ email, password })
         .then(response => {
           const uid = response.user.uid;
+          const data = {
+            id: uid,
+            email
+          };
           const usersRef = firebase.firestore().collection("users");
           usersRef
             .doc(uid)
-            .get()
-            .then(firestoreDocument => {
-              if (!firestoreDocument.exists) {
-                alert("User does not exist anymore.");
-                return;
-              }
-              const user = firestoreDocument.data();
-              console.log({ user });
-              navigation.navigate("Home", { user: user });
+            .set(data)
+            .then(() => {
+              navigation.navigate("Home", { user: data });
             })
             .catch(error => {
               alert(error);
@@ -49,34 +47,29 @@ function Login({ navigation }) {
         })
         .catch(error => {
           updateLoading(false);
+          console.log({ error });
           setMessage(String(error));
+
           setVisible(1);
         });
     }
   };
 
-  const onGoogleSubmit = () => {
-    firebase_sign_in_google().then(response => {
-      console.log({ response });
-    });
-  };
-
-  const onSignUpSubmit = () => {
-    navigation.navigate("SignUp");
+  const onLoginNavigate = () => {
+    navigation.navigate("Login");
   };
   return (
     <View style={styles.container}>
       <Input placeholder="Email" onChangeText={updateEmail} value={email} />
       <Input placeholder="Password" secureTextEntry={true} onChangeText={updatePassword} value={password} />
-      <Button onPress={onLoginSubmit} title="Login" />
-      <Button onPress={onGoogleSubmit} title="Google" />
-      <Button onPress={onSignUpSubmit} title="SignUp" />
+      <Button onPress={onSubmit} title="Sign Up" />
+      <Button onPress={onLoginNavigate} title="Back" />
       <Text>{message}</Text>
     </View>
   );
 }
 
-export default Login;
+export default SignUp;
 
 const styles = StyleSheet.create({
   container: {
