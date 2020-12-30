@@ -6,7 +6,6 @@ import { firebase, firebase_sign_out } from "../../firebase";
 
 function Home({ navigation }) {
   const [phoneNumber, updatePhoneNumber] = useState("");
-  const [userDict, updateUserDict] = useState({});
 
   const firebaseRef = firebase
     .database()
@@ -17,7 +16,6 @@ function Home({ navigation }) {
     firebaseRef.on("value", snapshot => {
       const snapshot_data = snapshot.val();
       const phoneNumber = snapshot_data["phoneNumber"] || "";
-      updateUserDict(snapshot_data);
       updatePhoneNumber(phoneNumber);
     });
   }, []);
@@ -29,7 +27,7 @@ function Home({ navigation }) {
   };
 
   const onSubmit = () => {
-    firebaseRef.set({ ...userDict, phoneNumber: phoneNumber });
+    firebaseRef.update({ phoneNumber: phoneNumber });
   };
 
   return (

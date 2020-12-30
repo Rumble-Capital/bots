@@ -37,7 +37,7 @@ export function firebase_sign_in_google() {
   return firebase
     .auth()
     .signInWithPopup(provider)
-    .then(response => console.log({ response }))
+    .then(response => response)
     .catch(error => console.log({ error }));
 }
 export function firebase_sign_up({ email, password }) {

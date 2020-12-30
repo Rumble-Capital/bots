@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, View, SafeAreaView, Text } from "react-native";
+import { StyleSheet, View, SafeAreaView, Text, Platform } from "react-native";
 import { Button, ThemeProvider, Header, Input } from "react-native-elements";
 import {
   firebase,
@@ -17,7 +17,6 @@ function Login({ navigation }) {
   const [message, setMessage] = useState("");
   const [loading, updateLoading] = useState(false);
   const [visible, setVisible] = useState(0);
-
   const onLoginSubmit = () => {
     if (email === "") {
       setMessage("Email can't be empty.");
@@ -52,7 +51,24 @@ function Login({ navigation }) {
 
   const onGoogleSubmit = () => {
     firebase_sign_in_google().then(response => {
-      console.log({ response });
+      const uid = response.user.uid;
+      const email = response.user.email;
+
+      const data = {
+        id: uid,
+        email: email
+      };
+
+      const firebaseRef = firebase.database().ref("users");
+      firebaseRef
+        .child(uid)
+        .update(data)
+        .then(() => {
+          navigation.navigate("Home", { user: data });
+        })
+        .catch(error => {
+          alert(error);
+        });
     });
   };
 
@@ -64,7 +80,7 @@ function Login({ navigation }) {
       <Input placeholder="Email" onChangeText={updateEmail} value={email} />
       <Input placeholder="Password" secureTextEntry={true} onChangeText={updatePassword} value={password} />
       <Button onPress={onLoginSubmit} title="Login" />
-      <Button onPress={onGoogleSubmit} title="Google" />
+      {Platform.OS == "web" ? <Button onPress={onGoogleSubmit} title="Google" /> : null}
       <Button onPress={onSignUpSubmit} title="SignUp" />
       <Text>{message}</Text>
     </View>
